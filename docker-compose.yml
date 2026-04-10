@@ -1,0 +1,85 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bank-import-app
+    restart: "no"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zzz-custom-uploads.ini:ro
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+      - rabbitmq
+    ports:
+      - "8000:8000"
+    command: php artisan serve --host=0.0.0.0 --port=8000
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bank-import-worker
+    restart: "no"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zzz-custom-uploads.ini:ro
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+      - rabbitmq
+    command: php artisan queue:work rabbitmq --queue=csv-imports --tries=1
+
+  composer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bank-import-composer
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    env_file:
+      - .env
+    entrypoint: ["composer"]
+
+  mariadb:
+    image: mariadb:11.4
+    container_name: bank-import-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: bank_import
+      MARIADB_USER: bank_user
+      MARIADB_PASSWORD: bank_pass
+      MARIADB_ROOT_PASSWORD: 123456
+    ports:
+      - "3305:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  adminer:
+    image: adminer:4.8.1
+    container_name: bank-import-adminer
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:8080"
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: bank-import-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  mariadb_data:
