@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    
+    /**
+     * @return void
+     */
+    public function up(): void
+    {
+        Schema::create('queue_status', function (Blueprint $table): void {
+            $table->id();
+            $table->string('queue_id')->unique();
+            $table->string('file_path');
+            $table->unsignedTinyInteger('status')->default(0);
+            $table->dateTime('created_at')->useCurrent();
+        });
+    }
+    
+    /**
+     * @return void
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('queue_status');
+    }
+};
