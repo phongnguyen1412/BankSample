@@ -113,7 +113,7 @@ class ImportController extends Controller
         $requiredColumns = ['date', 'content', 'amount', 'type', 'customer_email'];
         $missingColumns = array_values(array_diff($requiredColumns, $normalizedHeader));
 
-        if (empty($missingColumns)) {
+        if (!empty($missingColumns)) {
             throw ValidationException::withMessages([
                 'file' => 'Missing required columns: ' . implode(', ', $missingColumns),
             ]);
