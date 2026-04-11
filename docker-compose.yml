@@ -40,7 +40,7 @@ services:
     command:
       - /bin/sh
       - -lc
-      - php artisan rabbitmq:queue-declare "${RABBITMQ_QUEUE:-csv-imports}" rabbitmq && php artisan queue:work rabbitmq --queue="${RABBITMQ_QUEUE:-csv-imports}" --tries=1
+      - php artisan queue:work rabbitmq --queue="${RABBITMQ_QUEUE:-csv-imports}" --tries=1
 
   composer:
     build:
@@ -87,6 +87,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   mariadb_data:
+  rabbitmq_data:
