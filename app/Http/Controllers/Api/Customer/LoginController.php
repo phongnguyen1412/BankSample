@@ -14,7 +14,7 @@ class LoginController extends Controller
      * @var CustomerRepository
      */
     protected $customerRepository;
-    
+
     /**
      * @param CustomerRepository $customerRepository
      */
@@ -24,6 +24,8 @@ class LoginController extends Controller
     }
 
     /**
+     * Customer Login
+     *
      * @param CustomerLoginRequest $request
      * @return JsonResponse
      */

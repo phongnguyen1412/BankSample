@@ -19,12 +19,21 @@ class ImportController extends Controller
      * @var CsvHeaderNormalizer
      */
     protected $headerNormalizer;
-
+    
+    /**
+     * @param CsvHeaderNormalizer $headerNormalizer
+     */
     public function __construct(CsvHeaderNormalizer $headerNormalizer)
     {
         $this->headerNormalizer = $headerNormalizer;
     }
-
+    
+    /**
+     * Import Csv
+     *
+     * @param ImportCsvRequest $request
+     * @return JsonResponse
+     */
     public function __invoke(ImportCsvRequest $request): JsonResponse
     {
         $file = $request->file('file');
@@ -40,7 +49,11 @@ class ImportController extends Controller
 
             $disk = (string) config('imports.disk', 'local');
             $directory = trim((string) config('imports.directory', 'imports'), '/');
-            $filename = now()->format('YmdHis') . '_' . Str::uuid()->toString() . '.' . ($file->getClientOriginalExtension() ?: 'csv');
+            $filename = now()->format('YmdHis')
+                . '_'
+                . Str::uuid()->toString()
+                . '.'
+                . ($file->getClientOriginalExtension() ?: 'csv');
             $path = Storage::disk($disk)->putFileAs($directory, $file, $filename);
 
             $queueId = Str::upper(Str::random(24));
@@ -75,8 +88,10 @@ class ImportController extends Controller
             ], 500);
         }
     }
-    
+
     /**
+     * Validate Header
+     *
      * @param $realPath
      * @return void
      * @throws ValidationException

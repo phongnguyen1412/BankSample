@@ -11,10 +11,20 @@ use Throwable;
 
 class TransactionController extends Controller
 {
+    /**
+     * @var CustomerRepository
+     */
     protected $customerRepository;
     
+    /**
+     * @var TransactionRecordRepository
+     */
     protected $transactionRecordRepository;
     
+    /**
+     * @param CustomerRepository $customerRepository
+     * @param TransactionRecordRepository $transactionRecordRepository
+     */
     public function __construct(
         CustomerRepository $customerRepository,
         TransactionRecordRepository $transactionRecordRepository
@@ -22,12 +32,15 @@ class TransactionController extends Controller
         $this->customerRepository = $customerRepository;
         $this->transactionRecordRepository = $transactionRecordRepository;
     }
-    
+
     /**
+     * Get Transaction
+     *
      * @param CustomerTransactionRequest $request
      * @return JsonResponse
      */
-    public function __invoke(CustomerTransactionRequest $request): JsonResponse {
+    public function __invoke(CustomerTransactionRequest $request): JsonResponse
+    {
         $email = strtolower(trim((string)$request->input('email')));
         $perPage = (int)$request->input('per_page', 10);
         $customer = $this->customerRepository->findByEmail($email);
@@ -38,13 +51,14 @@ class TransactionController extends Controller
             ], 404);
         }
         try {
-            $transactions = $this->transactionRecordRepository->getTransactionByCustomerId((int)$customer->id, $perPage);
+            $transactions = $this->transactionRecordRepository
+                ->getTransactionByCustomerId((int) $customer->id, $perPage);
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
                 'customer' => [
-                    'email' => (string)$customer->email,
-                    'name' => (string)$customer->name,
+                    'email' => (string) $customer->email,
+                    'name' => (string) $customer->name,
                 ],
                 'pagination' => [
                     'current_page' => $transactions->currentPage(),
@@ -61,12 +75,15 @@ class TransactionController extends Controller
             ], 500);
         }
     }
-    
+
     /**
+     * Format Transaction
+     *
      * @param array $transactions
      * @return array
      */
-    protected function formatTransactions(array $transactions): array {
+    protected function formatTransactions(array $transactions): array
+    {
         $items = [];
         foreach ($transactions as $transaction) {
             $items[] = [
@@ -77,7 +94,7 @@ class TransactionController extends Controller
                 'type' => (int)$transaction->type === 1 ? 'Deposit' : 'Withdraw',
             ];
         }
-        
+
         return $items;
     }
 }

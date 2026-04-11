@@ -12,6 +12,8 @@ class CustomerRepository
     protected $cache = [];
 
     /**
+     * Find Id by Email
+     *
      * @param string $email
      * @return int|null
      */
@@ -37,6 +39,8 @@ class CustomerRepository
     }
 
     /**
+     * Find Customer By Email
+     *
      * @param string $email
      * @return Customer|null
      */
@@ -54,6 +58,8 @@ class CustomerRepository
     }
 
     /**
+     * Create User
+     *
      * @param array $data
      * @return Customer
      */

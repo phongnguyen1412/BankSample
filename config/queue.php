@@ -24,8 +24,12 @@ return [
             ],
 
             'options' => [
+                'heartbeat' => (int) env('RABBITMQ_HEARTBEAT', 30),
+                'read_timeout' => (float) env('RABBITMQ_READ_WRITE_TIMEOUT', 60),
+                'write_timeout' => (float) env('RABBITMQ_READ_WRITE_TIMEOUT', 60),
                 'queue' => [
-                    'exchange' => env('RABBITMQ_EXCHANGE', ''),
+                    'exchange' => env('RABBITMQ_EXCHANGE', 'application-x'),
+                    'exchange_type' => env('RABBITMQ_EXCHANGE_TYPE', 'topic'),
                     'exchange_routing_key' => env('RABBITMQ_ROUTING_KEY', env('RABBITMQ_QUEUE', 'csv-imports')),
                 ],
             ],

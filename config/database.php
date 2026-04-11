@@ -4,7 +4,7 @@ use Illuminate\Support\Str;
 
 return [
     'default' => env('DB_CONNECTION', 'sqlite'),
-
+    
     'connections' => [
         'sqlite' => [
             'driver' => 'sqlite',
@@ -13,7 +13,7 @@ return [
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
-
+        
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
@@ -31,17 +31,17 @@ return [
             'engine' => null,
         ],
     ],
-
+    
     'migrations' => [
         'table' => 'migrations',
         'update_date_on_publish' => true,
     ],
-
+    
     'redis' => [
         'client' => env('REDIS_CLIENT', 'phpredis'),
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string)env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
     ],
 ];
