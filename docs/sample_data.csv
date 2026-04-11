@@ -1,51 +1,101 @@
 date,content,amount,type,customer_email
-2026-04-01 00:05:09,Sample transaction 1,-2.01,withdraw,customer1@example.com
-2026-04-02 01:10:18,Sample transaction 2,+3.02,1,customer2@example.com
-2026-04-03 02:15:27,Sample transaction 3,-4.03,2,customer3@example.com
-2026-04-04 03:20:36,Sample transaction 4,+5.04,DEPOSIT,customer4@example.com
-2026-04-05 04:25:45,Sample transaction 5,-6.05,WITHDRAW,customer5@example.com
-2026-04-06 05:30:54,Sample transaction 6,+7.06,,customer6@example.com
-2026-04-07 06:35:03,Sample transaction 7,-8.07,0,customer7@example.com
-2026-04-08 07:40:12,Sample transaction 8,+9.08,abc,customer8@example.com
-2026-04-09 08:45:21,Sample transaction 9,-10.09,transfer,customer9@example.com
-2026-04-10 09:50:30,Sample transaction 10,+11.10,deposit,customer10@example.com
-2026-04-11 10:55:39,Sample transaction 11,-12.11,withdraw,customer1@example.com
-2026-04-12 11:00:48,Sample transaction 12,+13.12,1,customer2@example.com
-2026-04-13 12:05:57,Sample transaction 13,-14.13,2,customer3@example.com
-2026-04-14 13:10:06,Sample transaction 14,+15.14,DEPOSIT,customer4@example.com
-2026-04-15 14:15:15,Sample transaction 15,-16.15,WITHDRAW,customer5@example.com
-2026-04-16 15:20:24,Sample transaction 16,+17.16,,customer6@example.com
-2026-04-17 16:25:33,Sample transaction 17,-18.17,0,customer7@example.com
-2026-04-18 17:30:42,Sample transaction 18,+19.18,abc,customer8@example.com
-2026-04-19 18:35:51,Sample transaction 19,-20.19,transfer,customer9@example.com
-2026-04-20 19:40:00,Sample transaction 20,+21.20,deposit,customer10@example.com
-2026-04-21 20:45:09,Sample transaction 21,-22.21,withdraw,customer1@example.com
-2026-04-22 21:50:18,Sample transaction 22,+23.22,1,customer2@example.com
-2026-04-23 22:55:27,Sample transaction 23,-24.23,2,customer3@example.com
-2026-04-24 23:00:36,Sample transaction 24,+25.24,DEPOSIT,customer4@example.com
-2026-04-25 00:05:45,Sample transaction 25,-26.25,WITHDRAW,customer5@example.com
-2026-04-26 01:10:54,Sample transaction 26,+27.26,,customer6@example.com
-2026-04-27 02:15:03,Sample transaction 27,-28.27,0,customer7@example.com
-2026-04-28 03:20:12,Sample transaction 28,+29.28,abc,customer8@example.com
-2026-04-01 04:25:21,Sample transaction 29,-30.29,transfer,customer9@example.com
-2026-04-02 05:30:30,Sample transaction 30,+31.30,deposit,customer10@example.com
-2026-04-03 06:35:39,Sample transaction 31,-32.31,withdraw,customer1@example.com
-2026-04-04 07:40:48,Sample transaction 32,+33.32,1,customer2@example.com
-2026-04-05 08:45:57,Sample transaction 33,-34.33,2,customer3@example.com
-2026-04-06 09:50:06,Sample transaction 34,+35.34,DEPOSIT,customer4@example.com
-2026-04-07 10:55:15,Sample transaction 35,-36.35,WITHDRAW,customer5@example.com
-2026-04-08 11:00:24,Sample transaction 36,+37.36,,customer6@example.com
-2026-04-09 12:05:33,Sample transaction 37,-38.37,0,customer7@example.com
-2026-04-10 13:10:42,Sample transaction 38,+39.38,abc,customer8@example.com
-2026-04-11 14:15:51,Sample transaction 39,-40.39,transfer,customer9@example.com
-2026-04-12 15:20:00,Sample transaction 40,+41.40,deposit,customer10@example.com
-2026-04-13 16:25:09,Sample transaction 41,-42.41,withdraw,customer1@example.com
-2026-04-14 17:30:18,Sample transaction 42,+43.42,1,customer2@example.com
-2026-04-15 18:35:27,Sample transaction 43,-44.43,2,customer3@example.com
-2026-04-16 19:40:36,Sample transaction 44,+45.44,DEPOSIT,customer4@example.com
-2026-04-17 20:45:45,Sample transaction 45,-46.45,WITHDRAW,customer5@example.com
-2026-04-18 21:50:54,Sample transaction 46,+47.46,,customer6@example.com
-2026-04-19 22:55:03,Sample transaction 47,-48.47,0,customer7@example.com
-2026-04-20 23:00:12,Sample transaction 48,+49.48,abc,customer8@example.com
-2026-04-21 00:05:21,Sample transaction 49,-50.49,transfer,customer9@example.com
-2026-04-22 01:10:30,Sample transaction 50,+51.50,deposit,customer10@example.com
+2026-04-01 00:01:00,Valid transaction 1,+101.01,deposit,customer1@example.com
+2026-04-02 00:02:00,Valid transaction 2,-102.02,withdraw,customer2@example.com
+2026-04-03 00:03:00,Valid transaction 3,+103.03,1,customer3@example.com
+2026-04-04 00:04:00,Valid transaction 4,-104.04,2,customer4@example.com
+2026-04-05 00:05:00,Valid transaction 5,+105.05,DEPOSIT,customer5@example.com
+2026-04-06 00:06:00,Valid transaction 6,-106.06,WITHDRAW,customer6@example.com
+2026-04-07 00:07:00,Valid transaction 7,+107.07,deposit,customer7@example.com
+2026-04-08 00:08:00,Valid transaction 8,-108.08,withdraw,customer8@example.com
+2026-04-09 00:09:00,Valid transaction 9,+109.09,1,customer9@example.com
+2026-04-10 00:10:00,Valid transaction 10,-110.10,2,customer10@example.com
+2026-04-11 00:11:00,Invalid type empty,+111.11,,customer1@example.com
+2026-04-12 00:12:00,Invalid type zero,-112.12,0,customer2@example.com
+2026-04-13 00:13:00,Invalid type three,+113.13,3,customer3@example.com
+2026-04-14 00:14:00,Invalid type text,-114.14,abc,customer4@example.com
+2026-04-15 00:15:00,Invalid type transfer,+115.15,transfer,customer5@example.com
+2026-04-16 00:16:00,Invalid type withdrawal,-116.16,withdrawal,customer6@example.com
+2026-04-17 00:17:00,Invalid type null,+117.17,null,customer7@example.com
+,Invalid date empty,-118.18,withdraw,customer8@example.com
+2026/04/19 00:19:00,Invalid date slash,+119.19,deposit,customer9@example.com
+not-date,Invalid date text,-120.20,withdraw,customer10@example.com
+2026-13-21 00:21:00,Invalid date month,+121.21,deposit,customer1@example.com
+2026-04-22,Invalid date missing time,-122.22,withdraw,customer2@example.com
+2026-04-23 00:23:00,Invalid amount empty,,deposit,customer3@example.com
+2026-04-24 00:24:00,Invalid amount text,abc,withdraw,customer4@example.com
+2026-04-25 00:25:00,Invalid amount mixed,10abc,deposit,customer5@example.com
+2026-04-26 00:26:00,Invalid amount sign only,+,withdraw,customer6@example.com
+2026-04-27 00:27:00,Invalid amount double sign,--10,deposit,customer7@example.com
+2026-04-28 00:28:00,Invalid amount two decimals,12.3.4,withdraw,customer8@example.com
+2026-04-29 00:29:00,,+129.29,deposit,customer9@example.com
+2026-04-30 00:30:00,<script>bad</script>,-130.30,withdraw,customer10@example.com
+2026-05-01 00:31:00,Invalid email empty,+131.31,deposit,
+2026-05-02 00:32:00,Invalid email text,-132.32,withdraw,customer
+2026-05-03 00:33:00,Invalid email missing domain,+133.33,deposit,customer@
+2026-05-04 00:34:00,Customer not found,-134.34,withdraw,missing-customer@example.com
+2026-05-05 00:35:00,Valid transaction 35,+135.35,deposit,customer1@example.com
+2026-05-06 00:36:00,Valid transaction 36,-136.36,withdraw,customer2@example.com
+2026-05-07 00:37:00,Valid transaction 37,+137.37,1,customer3@example.com
+2026-05-08 00:38:00,Valid transaction 38,-138.38,2,customer4@example.com
+2026-05-09 00:39:00,Valid transaction 39,+139.39,DEPOSIT,customer5@example.com
+2026-05-10 00:40:00,Valid transaction 40,-140.40,WITHDRAW,customer6@example.com
+2026-05-11 00:41:00,Invalid type empty,+141.41,,customer7@example.com
+2026-05-12 00:42:00,Invalid type zero,-142.42,0,customer8@example.com
+2026-05-13 00:43:00,Invalid type three,+143.43,3,customer9@example.com
+2026-05-14 00:44:00,Invalid type text,-144.44,abc,customer10@example.com
+2026-05-15 00:45:00,Invalid type transfer,+145.45,transfer,customer1@example.com
+2026-05-16 00:46:00,Invalid type withdrawal,-146.46,withdrawal,customer2@example.com
+2026-05-17 00:47:00,Invalid type null,+147.47,null,customer3@example.com
+,Invalid date empty again,-148.48,withdraw,customer4@example.com
+2026/05/19 00:49:00,Invalid date slash again,+149.49,deposit,customer5@example.com
+not-date,Invalid date text again,-150.50,withdraw,customer6@example.com
+2026-15-21 00:51:00,Invalid date month again,+151.51,deposit,customer7@example.com
+2026-05-22,Invalid date missing time again,-152.52,withdraw,customer8@example.com
+2026-05-23 00:53:00,Invalid amount empty again,,deposit,customer9@example.com
+2026-05-24 00:54:00,Invalid amount text again,abc,withdraw,customer10@example.com
+2026-05-25 00:55:00,Invalid amount mixed again,10abc,deposit,customer1@example.com
+2026-05-26 00:56:00,Invalid amount sign only again,+,withdraw,customer2@example.com
+2026-05-27 00:57:00,Invalid amount double sign again,--10,deposit,customer3@example.com
+2026-05-28 00:58:00,Invalid amount two decimals again,12.3.4,withdraw,customer4@example.com
+2026-05-29 00:59:00,,+159.59,deposit,customer5@example.com
+2026-05-30 01:00:00,<b>bad content</b>,-160.60,withdraw,customer6@example.com
+2026-05-31 01:01:00,Invalid email empty again,+161.61,deposit,
+2026-06-01 01:02:00,Invalid email text again,-162.62,withdraw,customer
+2026-06-02 01:03:00,Invalid email missing domain again,+163.63,deposit,customer@
+2026-06-03 01:04:00,Customer not found again,-164.64,withdraw,unknown@example.com
+2026-06-04 01:05:00,Valid transaction 65,+165.65,deposit,customer7@example.com
+2026-06-05 01:06:00,Valid transaction 66,-166.66,withdraw,customer8@example.com
+2026-06-06 01:07:00,Valid transaction 67,+167.67,1,customer9@example.com
+2026-06-07 01:08:00,Valid transaction 68,-168.68,2,customer10@example.com
+2026-06-08 01:09:00,Valid transaction 69,+169.69,DEPOSIT,customer1@example.com
+2026-06-09 01:10:00,Valid transaction 70,-170.70,WITHDRAW,customer2@example.com
+2026-06-10 01:11:00,Valid transaction 71,+171.71,deposit,customer3@example.com
+2026-06-11 01:12:00,Valid transaction 72,-172.72,withdraw,customer4@example.com
+2026-06-12 01:13:00,Valid transaction 73,+173.73,1,customer5@example.com
+2026-06-13 01:14:00,Valid transaction 74,-174.74,2,customer6@example.com
+2026-06-14 01:15:00,Valid transaction 75,+175.75,deposit,customer7@example.com
+2026-06-15 01:16:00,Valid transaction 76,-176.76,withdraw,customer8@example.com
+2026-06-16 01:17:00,Valid transaction 77,+177.77,1,customer9@example.com
+2026-06-17 01:18:00,Valid transaction 78,-178.78,2,customer10@example.com
+2026-06-18 01:19:00,Valid transaction 79,+179.79,DEPOSIT,customer1@example.com
+2026-06-19 01:20:00,Valid transaction 80,-180.80,WITHDRAW,customer2@example.com
+2026-06-20 01:21:00,Invalid type empty final,+181.81,,customer3@example.com
+2026-06-21 01:22:00,Invalid type zero final,-182.82,0,customer4@example.com
+2026-06-22 01:23:00,Invalid type three final,+183.83,3,customer5@example.com
+2026-06-23 01:24:00,Invalid type text final,-184.84,abc,customer6@example.com
+2026-06-24 01:25:00,Invalid type transfer final,+185.85,transfer,customer7@example.com
+2026-06-25 01:26:00,Invalid type withdrawal final,-186.86,withdrawal,customer8@example.com
+2026-06-26 01:27:00,Invalid type null final,+187.87,null,customer9@example.com
+,Invalid date empty final,-188.88,withdraw,customer10@example.com
+2026/06/28 01:29:00,Invalid date slash final,+189.89,deposit,customer1@example.com
+not-date,Invalid date text final,-190.90,withdraw,customer2@example.com
+2026-16-30 01:31:00,Invalid date month final,+191.91,deposit,customer3@example.com
+2026-06-30,Invalid date missing time final,-192.92,withdraw,customer4@example.com
+2026-07-01 01:33:00,Invalid amount empty final,,deposit,customer5@example.com
+2026-07-02 01:34:00,Invalid amount text final,abc,withdraw,customer6@example.com
+2026-07-03 01:35:00,Invalid amount mixed final,10abc,deposit,customer7@example.com
+2026-07-04 01:36:00,Invalid amount sign only final,+,withdraw,customer8@example.com
+2026-07-05 01:37:00,Invalid amount double sign final,--10,deposit,customer9@example.com
+2026-07-06 01:38:00,Invalid amount two decimals final,12.3.4,withdraw,customer10@example.com
+2026-07-07 01:39:00,,+199.99,deposit,customer1@example.com
+2026-07-08 01:40:00,<i>bad content</i>,-200.00,withdraw,customer2@example.com

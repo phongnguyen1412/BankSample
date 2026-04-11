@@ -11,7 +11,7 @@ return [
         'rabbitmq' => [
             'driver' => 'rabbitmq',
             'queue' => env('RABBITMQ_QUEUE', 'csv-imports'),
-            'connection' => PhpAmqpLib\Connection\AMQPLazyConnection::class,
+            'connection' => 'default',
 
             'hosts' => [
                 [
@@ -26,7 +26,7 @@ return [
             'options' => [
                 'heartbeat' => (int) env('RABBITMQ_HEARTBEAT', 30),
                 'read_timeout' => (float) env('RABBITMQ_READ_WRITE_TIMEOUT', 60),
-                'write_timeout' => (float) env('RABBITMQ_READ_WRITE_TIMEOUT', 60)
+                'write_timeout' => (float) env('RABBITMQ_READ_WRITE_TIMEOUT', 60),
             ],
 
             'worker' => env('RABBITMQ_WORKER', 'default'),

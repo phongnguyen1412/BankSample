@@ -12,7 +12,7 @@ This project is a banking transaction import built with Laravel, MariaDB, and Ra
 
 - `MariaDB`: stores data.
 
-- `Laravel Queue`: background service.
+- `Laravel Queue`: runs import jobs in the background.
 
 
 ## Principles, Patterns
@@ -67,7 +67,7 @@ Inter-service communication:
 - migration files to create the tables.
 10. `routes/`
 - `api`: the API route definitions.
-11. `tests/Unit`: unit test file
+11. `tests`: unit test setup and mapper test file
 
 ## Import Flow
 
