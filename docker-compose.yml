@@ -8,12 +8,14 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zzz-custom-uploads.ini:ro
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
     env_file:
       - .env
     depends_on:
-      - mariadb
-      - rabbitmq
+      mariadb:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
     ports:
       - "8000:8000"
     command: php artisan serve --host=0.0.0.0 --port=8000
@@ -23,17 +25,22 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: bank-import-worker
-    restart: "no"
+    restart: unless-stopped
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zzz-custom-uploads.ini:ro
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
     env_file:
       - .env
     depends_on:
-      - mariadb
-      - rabbitmq
-    command: php artisan queue:work rabbitmq --queue=csv-imports --tries=1
+      mariadb:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+    command:
+      - /bin/sh
+      - -lc
+      - php artisan queue:work rabbitmq --queue="${RABBITMQ_QUEUE:-csv-imports}" --tries=1
 
   composer:
     build:
@@ -80,6 +87,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   mariadb_data:
+  rabbitmq_data:

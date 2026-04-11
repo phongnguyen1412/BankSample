@@ -7,6 +7,8 @@ use Illuminate\Foundation\Http\FormRequest;
 class CustomerRegisterRequest extends FormRequest
 {
     /**
+     * Rules
+     *
      * @return array[]
      */
     public function rules(): array
@@ -17,8 +19,10 @@ class CustomerRegisterRequest extends FormRequest
             'password' => ['required', 'string', 'min:6'],
         ];
     }
-    
+
     /**
+     * Get Message
+     *
      * @return array[]
      */
     public function messages(): array

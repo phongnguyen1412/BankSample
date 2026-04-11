@@ -27,7 +27,7 @@ class ImportCsvJob implements ShouldQueue
     public $originalName;
 
     public $tries = 1;
-    
+
     /**
      * @param string $queueId
      * @param string $disk
@@ -44,8 +44,10 @@ class ImportCsvJob implements ShouldQueue
         $this->onConnection('rabbitmq');
         $this->onQueue((string) config('queue.connections.rabbitmq.queue', 'csv-imports'));
     }
-    
+
     /**
+     * Start Import
+     *
      * @param CsvImportService $csvImportService
      * @return void
      */
@@ -65,8 +67,10 @@ class ImportCsvJob implements ShouldQueue
                 'status' => $result->getStatus(),
             ]);
     }
-    
+
     /**
+     * Update status on fail
+     *
      * @param Throwable $exception
      * @return void
      */

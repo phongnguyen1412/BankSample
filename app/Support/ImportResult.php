@@ -25,7 +25,7 @@ class ImportResult
         $this->successCount = $successCount;
         $this->errorCount = $errorCount;
     }
-    
+
     /**
      * Get Status
      *

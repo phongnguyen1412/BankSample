@@ -13,6 +13,8 @@ use Throwable;
 class TransactionRecordRepository
 {
     /**
+     * Get Transaction by customer Id
+     *
      * @param int $customerId
      * @param int $perPage
      * @return LengthAwarePaginator
@@ -30,8 +32,10 @@ class TransactionRecordRepository
                 'type',
             ]);
     }
-    
+
     /**
+     * SAve Mutiple Record
+     *
      * @param $queueId
      * @param array $records
      * @return ImportResult
@@ -61,14 +65,20 @@ class TransactionRecordRepository
                 $uid = (string) $payload['transaction_uid'];
 
                 if (isset($exitsUids[$uid])) {
-                    $errorRows[] = $this->buildErrorRow($queueId, $record, 'Duplicate transaction in file.', $createdAt);
+                    $errorRows[] = $this->buildErrorRow(
+                        $queueId,
+                        $record,
+                        'Duplicate transaction in file.',
+                        $createdAt
+                    );
                     continue;
                 }
 
                 $exitsUids[$uid] = $record;
                 $insertRows[$uid] = $payload;
             } catch (ValidationException $exception) {
-                $message = collect($exception->errors())->flatten()->first() ?: $exception->getMessage();
+                $message = collect($exception->errors())->flatten()->first()
+                    ?: $exception->getMessage();
                 $errorRows[] = $this->buildErrorRow($queueId, $record, (string) $message, $createdAt);
             } catch (Throwable $exception) {
                 $errorRows[] = $this->buildErrorRow($queueId, $record, $exception->getMessage(), $createdAt);
@@ -83,7 +93,12 @@ class TransactionRecordRepository
 
             foreach ($existingUids as $existingUid) {
                 $record = $exitsUids[$existingUid];
-                $errorRows[] = $this->buildErrorRow($queueId, $record, 'Duplicate transaction already exists.', $createdAt);
+                $errorRows[] = $this->buildErrorRow(
+                    $queueId,
+                    $record,
+                    'Duplicate transaction already exists.',
+                    $createdAt
+                );
                 unset($insertRows[$existingUid]);
             }
         }
@@ -98,8 +113,10 @@ class TransactionRecordRepository
 
         return new ImportResult(count($insertRows), count($errorRows));
     }
-    
+
     /**
+     * Build Error Row
+     *
      * @param $queueId
      * @param array $record
      * @param string $message
@@ -117,8 +134,10 @@ class TransactionRecordRepository
             'created_at' => $createdAt,
         ];
     }
-    
+
     /**
+     * Format Date
+     *
      * @param $value
      * @return string|null
      */
@@ -136,8 +155,10 @@ class TransactionRecordRepository
 
         return date('Y-m-d H:i:s', $timestamp);
     }
-    
+
     /**
+     * Create transaction uid
+     *
      * @param array $record
      * @return string
      */

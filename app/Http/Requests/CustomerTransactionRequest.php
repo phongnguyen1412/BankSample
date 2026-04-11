@@ -7,6 +7,8 @@ use Illuminate\Foundation\Http\FormRequest;
 class CustomerTransactionRequest extends FormRequest
 {
     /**
+     * Rules
+     *
      * @return array[]
      */
     public function rules(): array
@@ -29,8 +31,10 @@ class CustomerTransactionRequest extends FormRequest
             ],
         ];
     }
-    
+
     /**
+     * Get Message
+     *
      * @return array[]
      */
     public function messages(): array

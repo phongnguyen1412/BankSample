@@ -89,6 +89,7 @@ cp .env.example .env
 composer install
 php artisan key:generate --force
 php artisan migrate --force
+php artisan rabbitmq:queue-declare csv-imports rabbitmq
 php artisan serve --host=0.0.0.0 --port=8000
 ```
 
@@ -114,6 +115,7 @@ docker compose run --rm composer install
 docker compose up -d
 docker compose exec app php artisan key:generate --force
 docker compose exec app php artisan migrate --force
+docker compose exec app php artisan rabbitmq:queue-declare csv-imports rabbitmq
 ```
 
 Main values to check in `.env.example`:

@@ -25,7 +25,12 @@ class CsvImportService
      * @var TransactionRecordRepository
      */
     protected $repository;
-
+    
+    /**
+     * @param CsvHeaderNormalizer $headerNormalizer
+     * @param TransactionRecordCsvDataMapper $dataMapper
+     * @param TransactionRecordRepository $repository
+     */
     public function __construct(
         CsvHeaderNormalizer $headerNormalizer,
         TransactionRecordCsvDataMapper $dataMapper,
@@ -35,8 +40,10 @@ class CsvImportService
         $this->dataMapper = $dataMapper;
         $this->repository = $repository;
     }
-    
+
     /**
+     * Import
+     *
      * @param string $disk
      * @param string $path
      * @param $queueId
@@ -80,7 +87,7 @@ class CsvImportService
                     $mappedRow['row_date'] = $rawRow['row_date'];
                     $mappedRow['row_content'] = $rawRow['row_content'];
                     $chunk[] = $mappedRow;
-                } catch (RuntimeException $exception) {
+                } catch (ValidationException $exception) {
                     $errorRows[] = $this->buildImportErrorRow(
                         $queueId,
                         $rowNumber,
@@ -110,13 +117,13 @@ class CsvImportService
                 throw new ValidationException('CSV file is empty or missing a header row.');
             }
 
-            if (empty($chunk)) {
+            if (!empty($chunk)) {
                 $result = $this->repository->saveMultiple($queueId, $chunk);
                 $successCount += $result->successCount;
                 $errorCount += $result->errorCount;
             }
 
-            if (empty($errorRows)) {
+            if (!empty($errorRows)) {
                 ImportError::query()->insert($errorRows);
             }
         } finally {
@@ -125,8 +132,10 @@ class CsvImportService
 
         return new ImportResult($successCount, $errorCount);
     }
-    
+
     /**
+     * Extract Raw Values
+     *
      * @param array $header
      * @param array $row
      * @return null[]
@@ -144,12 +153,14 @@ class CsvImportService
         }
 
         return [
-            'row_date' => isset($payload['date']) ? trim((string) $payload['date']) : null,
-            'row_content' => isset($payload['content']) ? trim((string) $payload['content']) : null,
+            'row_date' => isset($payload['date']) ? trim((string)$payload['date']) : null,
+            'row_content' => isset($payload['content']) ? trim((string)$payload['content']) : null,
         ];
     }
-    
+
     /**
+     * Build Error Row
+     *
      * @param $queueId
      * @param int $rowNumber
      * @param $rowDate
@@ -160,7 +171,7 @@ class CsvImportService
     protected function buildImportErrorRow($queueId, int $rowNumber, $rowDate, $rowContent, string $message): array
     {
         return [
-            'queue_id' => (string) $queueId,
+            'queue_id' => (string)$queueId,
             'row_number' => $rowNumber,
             'row_date' => $rowDate,
             'row_content' => $rowContent,
@@ -168,20 +179,20 @@ class CsvImportService
             'created_at' => now(),
         ];
     }
-    
+
     /**
      * @return int
      */
     protected function chunkSize(): int
     {
-        return max(1, (int) config('imports.chunk_size', 1000));
+        return max(1, (int)config('imports.chunk_size', 1000));
     }
-    
+
     /**
      * @return int
      */
     protected function errorBatchSize(): int
     {
-        return max(100, (int) config('imports.error_batch_size', 1000));
+        return max(100, (int)config('imports.error_batch_size', 1000));
     }
 }

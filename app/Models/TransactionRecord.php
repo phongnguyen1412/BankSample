@@ -11,12 +11,12 @@ class TransactionRecord extends Model
      * @var string
      */
     protected $table = 'transaction_record';
-    
+
     /**
      * @var bool
      */
     public $timestamps = false;
-    
+
     /**
      * @var array[]
      */
@@ -38,7 +38,7 @@ class TransactionRecord extends Model
         'customer_id' => 'integer',
         'type' => 'integer',
     ];
-    
+
     /**
      * @return array[]
      */
@@ -66,7 +66,7 @@ class TransactionRecord extends Model
             'created_at' => ['required', 'date'],
         ];
     }
-    
+
     /**
      * Validate
      *
@@ -77,7 +77,7 @@ class TransactionRecord extends Model
     {
         Validator::make($this->attributesToArray(), $this->rules())->validate();
     }
-    
+
     /**
      * @inheritDoc
      */

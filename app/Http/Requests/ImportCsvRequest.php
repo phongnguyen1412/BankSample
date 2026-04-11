@@ -7,6 +7,8 @@ use Illuminate\Foundation\Http\FormRequest;
 class ImportCsvRequest extends FormRequest
 {
     /**
+     * Rules
+     *
      * @return array[]
      */
     public function rules(): array
@@ -20,8 +22,10 @@ class ImportCsvRequest extends FormRequest
             ],
         ];
     }
-    
+
     /**
+     * Get Message
+     *
      * @return array[]
      */
     public function messages(): array

@@ -14,7 +14,7 @@ class RegisterController extends Controller
      * @var CustomerRepository
      */
     protected $customerRepository;
-    
+
     /**
      * @param CustomerRepository $customerRepository
      */
@@ -24,6 +24,8 @@ class RegisterController extends Controller
     }
 
     /**
+     * Resgiter
+     *
      * @param CustomerRegisterRequest $request
      * @return JsonResponse
      */

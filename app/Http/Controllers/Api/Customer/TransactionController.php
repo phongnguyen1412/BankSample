@@ -11,13 +11,25 @@ use Throwable;
 
 class TransactionController extends Controller
 {
+    /**
+     * @var TransactionRecordRepository
+     */
     protected $transactionRecordRepository;
-
+    
+    /**
+     * @param TransactionRecordRepository $transactionRecordRepository
+     */
     public function __construct(TransactionRecordRepository $transactionRecordRepository)
     {
         $this->transactionRecordRepository = $transactionRecordRepository;
     }
-
+    
+    /**
+     * Get Transaction
+     *
+     * @param CurrentCustomerTransactionRequest $request
+     * @return JsonResponse
+     */
     public function __invoke(CurrentCustomerTransactionRequest $request): JsonResponse
     {
         $customer = $request->user();
@@ -56,13 +68,18 @@ class TransactionController extends Controller
             ], 500);
         }
     }
-
+    
+    /**
+     * Format Transaction
+     *
+     * @param array $transactions
+     * @return array
+     */
     protected function formatTransactions(array $transactions): array
     {
         $items = [];
 
         foreach ($transactions as $transaction) {
-
             $items[] = [
                 'transaction_uid' => (string) $transaction->transaction_uid,
                 'date' => (string) $transaction->date,
