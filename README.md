@@ -226,7 +226,8 @@ Step 2: use the admin token to call import API:
 ```bash
 curl -X 'POST' \
   'https://your-domain.com/api/admin/imports' \
-  -H 'accept: */*' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
   -H 'Authorization: Bearer YOUR_TOKEN_HERE' \
   -F 'file=@YOUR_FILE_PATH'
 ```
@@ -236,7 +237,7 @@ Step 3: use the admin token to get transactions for any customer:
 ```bash
 curl -X 'GET' \
   'https://your-domain.com/api/admin/customer-transactions?email=customer1@example.com&page=1&per_page=10' \
-  -H 'accept: */*' \
+  -H 'accept: application/json' \
   -H 'Authorization: Bearer YOUR_TOKEN_HERE'
 ```
 
@@ -272,7 +273,7 @@ Step 6: customer gets only current customer transactions:
 ```bash
 curl -X 'GET' \
   'https://your-domain.com/api/customer/transaction?page=1&per_page=10' \
-  -H 'accept: */*' \
+  -H 'accept: application/json' \
   -H 'Authorization: Bearer YOUR_CUSTOMER_TOKEN_HERE'
 ```
 
@@ -310,7 +311,8 @@ Import CSV:
 ```bash
 curl -X 'POST' \
   'https://banksample.duckdns.org/api/admin/imports' \
-  -H 'accept: */*' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
   -H 'Authorization: Bearer YOUR_TOKEN_HERE' \
   -F 'file=@YOUR_FILE_PATH'
 ```
@@ -320,7 +322,7 @@ Admin customer transactions:
 ```bash
 curl -X 'GET' \
   'https://banksample.duckdns.org/api/admin/customer-transactions?email=customer1@example.com&page=1&per_page=10' \
-  -H 'accept: */*' \
+  -H 'accept: application/json' \
   -H 'Authorization: Bearer YOUR_TOKEN_HERE'
 ```
 
@@ -342,7 +344,7 @@ Customer get transactions:
 ```bash
 curl -X 'GET' \
   'https://banksample.duckdns.org/api/customer/transaction?page=1&per_page=10' \
-  -H 'accept: */*' \
+  -H 'accept: application/json' \
   -H 'Authorization: Bearer YOUR_CUSTOMER_TOKEN_HERE'
 ```
 
