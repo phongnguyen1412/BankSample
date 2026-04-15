@@ -57,7 +57,6 @@ class TransactionRecordRepository
                     'content' => $record['content'],
                     'amount' => $record['amount'],
                     'type' => $record['type'],
-                    'created_at' => $record['created_at'],
                 ];
 
                 Validator::make($payload, $rules)->validate();

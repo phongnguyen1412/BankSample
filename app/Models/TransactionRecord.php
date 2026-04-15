@@ -27,7 +27,6 @@ class TransactionRecord extends Model
         'content',
         'amount',
         'type',
-        'created_at',
     ];
 
     /**
@@ -63,7 +62,6 @@ class TransactionRecord extends Model
                 'integer',
                 'in:1,2',
             ],
-            'created_at' => ['required', 'date'],
         ];
     }
 

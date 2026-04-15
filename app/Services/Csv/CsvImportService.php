@@ -64,7 +64,6 @@ class CsvImportService
         $errorRows = [];
         $successCount = 0;
         $errorCount = 0;
-        $createdAt = now();
 
         try {
             while (($row = fgetcsv($handle)) !== false) {
@@ -82,7 +81,6 @@ class CsvImportService
 
                 try {
                     $mappedRow = $this->dataMapper->map($header, $row);
-                    $mappedRow['created_at'] = $createdAt;
                     $mappedRow['row_number'] = $rowNumber;
                     $mappedRow['row_date'] = $rawRow['row_date'];
                     $mappedRow['row_content'] = $rawRow['row_content'];

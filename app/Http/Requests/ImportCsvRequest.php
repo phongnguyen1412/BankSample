@@ -17,8 +17,8 @@ class ImportCsvRequest extends FormRequest
             'file' => [
                 'required',
                 'file',
-                'mimetypes:text/plain,text/csv,application/csv,application/vnd.ms-excel',
-                'extensions:csv,txt',
+                'mimetypes:text/csv,application/csv,application/vnd.ms-excel',
+                'extensions:csv',
             ],
         ];
     }
@@ -34,7 +34,7 @@ class ImportCsvRequest extends FormRequest
             'file.required' => 'File is required.',
             'file.file' => 'Invalid file upload.',
             'file.mimetypes' => 'Only CSV file is allowed.',
-            'file.extensions' => 'Only csv',
+            'file.extensions' => 'Only .csv file extension is allowed.',
         ];
     }
 }

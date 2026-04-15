@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,14 +16,27 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        Authenticate::redirectUsing(function (Request $request) {
+            return null;
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (AuthenticationException $exception, $request) {
-            if ($request->is('api/*')) {
+        $exceptions->render(function (\Throwable $exception, Request $request) {
+            if (! $request->is('api/*')) {
+                return null;
+            }
+
+            if ($exception instanceof AuthenticationException) {
                 return response()->json([
                     'message' => 'Unauthenticated.',
                 ], 401);
+            }
+
+            if ($exception instanceof ValidationException) {
+                return response()->json([
+                    'message' => $exception->getMessage(),
+                    'errors' => $exception->errors(),
+                ], $exception->status);
             }
 
             return null;
