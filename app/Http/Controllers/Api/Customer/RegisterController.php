@@ -34,10 +34,9 @@ class RegisterController extends Controller
         $email = strtolower(trim((string) $request->input('email')));
 
         if (!is_null($this->customerRepository->findByEmail($email))) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Customer email already exists.',
-            ], 422);
+            return $this->errorResponse('Customer email already exists.', 422, [
+                'email' => ['Customer email already exists.'],
+            ]);
         }
 
         $customer = $this->customerRepository->create([
@@ -48,9 +47,7 @@ class RegisterController extends Controller
 
         $token = $customer->createToken('customer-api')->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Customer account created successfully.',
+        return $this->successResponse('Customer account created successfully.', [
             'token' => $token,
             'token_type' => 'Bearer',
         ], 201);

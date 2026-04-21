@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AuthController;
+use App\Http\Controllers\Api\ImportChunkController;
 use App\Http\Controllers\Api\ImportController;
 use App\Http\Controllers\Api\Admin\Customer\TransactionController as AdminCustomerTransactionController;
 use App\Http\Controllers\Api\Customer\LoginController as CustomerLoginController;
@@ -13,6 +14,7 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/imports', ImportController::class);
+        Route::post('/imports/chunk', ImportChunkController::class);
         Route::get('/customer-transactions', AdminCustomerTransactionController::class);
     });
 });

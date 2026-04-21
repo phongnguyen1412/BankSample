@@ -25,27 +25,23 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors()->first(),
-            ], 422);
+            return $this->errorResponse(
+                (string) $validator->errors()->first(),
+                422,
+                $validator->errors()->toArray()
+            );
         }
 
         $user = $this->findUserByEmail($request->input('email'));
         $password = (string)$request->input('password');
 
         if (!$this->isValidPassword($user, $password)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid email or password.',
-            ], 401);
+            return $this->errorResponse('Invalid email or password.', 401);
         }
 
         $token = $user->createToken('import-api')->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Login successful.',
+        return $this->successResponse('Login successful.', [
             'token' => $token,
             'token_type' => 'Bearer',
         ]);

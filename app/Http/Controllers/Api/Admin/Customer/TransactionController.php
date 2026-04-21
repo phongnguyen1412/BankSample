@@ -45,17 +45,12 @@ class TransactionController extends Controller
         $perPage = (int)$request->input('per_page', 10);
         $customer = $this->customerRepository->findByEmail($email);
         if ($customer === null) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Customer not found.',
-            ], 404);
+            return $this->errorResponse('Customer not found.', 404);
         }
         try {
             $transactions = $this->transactionRecordRepository
                 ->getTransactionByCustomerId((int) $customer->id, $perPage);
-            return response()->json([
-                'success' => true,
-                'message' => 'Success',
+            return $this->successResponse('Transactions loaded successfully.', [
                 'customer' => [
                     'email' => (string) $customer->email,
                     'name' => (string) $customer->name,
@@ -69,10 +64,7 @@ class TransactionController extends Controller
             ]);
         } catch (Throwable $throwable) {
             report($throwable);
-            return response()->json([
-                'success' => false,
-                'message' => 'Server error. Please try again later.',
-            ], 500);
+            return $this->errorResponse('Server error. Please try again later.', 500);
         }
     }
 

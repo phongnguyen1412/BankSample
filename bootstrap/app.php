@@ -28,18 +28,25 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if ($exception instanceof AuthenticationException) {
                 return response()->json([
+                    'success' => false,
                     'message' => 'Unauthenticated.',
                 ], 401);
             }
 
             if ($exception instanceof ValidationException) {
                 return response()->json([
+                    'success' => false,
                     'message' => $exception->getMessage(),
                     'errors' => $exception->errors(),
                 ], $exception->status);
             }
 
-            return null;
+            report($exception);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Server error. Please try again later.',
+            ], 500);
         });
     })
     ->create();

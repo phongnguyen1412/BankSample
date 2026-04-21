@@ -36,17 +36,12 @@ class LoginController extends Controller
         $customer = $this->customerRepository->findByEmail($email);
 
         if ($customer === null || !Hash::check($password, (string) $customer->password)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid email or password.',
-            ], 401);
+            return $this->errorResponse('Invalid email or password.', 401);
         }
 
         $token = $customer->createToken('customer-api')->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Customer login successful.',
+        return $this->successResponse('Customer login successful.', [
             'token' => $token,
             'token_type' => 'Bearer',
         ]);

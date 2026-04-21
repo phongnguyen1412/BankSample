@@ -186,6 +186,7 @@ After Docker is up, you can open these URLs:
 - Swagger YAML: `http://127.0.0.1:8000/swagger.yaml`
 - Admin Login API: `http://127.0.0.1:8000/api/admin/login`
 - Admin Import API: `http://127.0.0.1:8000/api/admin/imports`
+- Admin Import Chunk API: `http://127.0.0.1:8000/api/admin/imports/chunk`
 - Admin Customer Transactions API: `http://127.0.0.1:8000/api/admin/customer-transactions`
 - Customer Register API: `http://127.0.0.1:8000/api/customer/register`
 - Customer Login API: `http://127.0.0.1:8000/api/customer/login`
@@ -231,6 +232,23 @@ curl -X 'POST' \
   -H 'Authorization: Bearer YOUR_TOKEN_HERE' \
   -F 'file=@YOUR_FILE_PATH'
 ```
+
+Optional: for a large CSV file, upload by chunks:
+
+```bash
+curl -X 'POST' \
+  'https://your-domain.com/api/admin/imports/chunk' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -H 'Authorization: Bearer YOUR_TOKEN_HERE' \
+  -F 'upload_id=large-import-001' \
+  -F 'chunk_index=0' \
+  -F 'total_chunks=3' \
+  -F 'original_name=large-sample.csv' \
+  -F 'chunk=@YOUR_CHUNK_FILE_PATH'
+```
+
+Keep the same `upload_id` and `original_name`, then increase `chunk_index` until the last chunk. When all chunks are received, the API will combine the file and create the import queue.
 
 Step 3: use the admin token to get transactions for any customer:
 
